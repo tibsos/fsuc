@@ -1,0 +1,1046 @@
+{% load static %}
+{% load compress %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Сейф</title>
+        <meta name="description" content="Менеджер паролей | Сейф">
+
+        <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+
+        <script src="{% static 'packages/jquery-3.6.1.min.js' %}"></script>
+        <script src="{% static 'packages/htmx.min.js' %}"></script>
+        <script src="{% static 'packages/iconify.min.js' %}"></script>
+
+        {% compress css %}
+
+            <link rel="stylesheet" href="{% static 'scss/app/home.scss' %}" type="text/x-scss">
+
+        {% endcompress %}
+
+    </head>
+    
+    <body>
+
+        <div class="everything">
+
+            <!-- Profile dropdown btn -->
+            <div class="profile-dropdown">
+
+                <div class="buttons">
+
+                    <a href="#">
+
+                        <div class="btn" id="myAccount">
+
+                            <svg style="left: 15px;" xmlns="http://www.w3.org/2000/svg" width="23.339" height="23.34" viewBox="0 0 23.339 23.34">
+                                <path id="Icon_ionic-ios-person" data-name="Icon ionic-ios-person" d="M27.828,27.251c-.438-1.933-2.936-2.875-3.8-3.179a28.323,28.323,0,0,0-3.167-.608,3.218,3.218,0,0,1-1.465-.675,12.8,12.8,0,0,1-.1-3,9.016,9.016,0,0,0,.693-1.319,17.013,17.013,0,0,0,.511-2.3s.5,0,.675-.875a8.612,8.612,0,0,0,.45-2.036c-.036-.7-.419-.681-.419-.681a10.657,10.657,0,0,0,.413-3.118c.055-2.5-1.9-4.96-5.446-4.96-3.592,0-5.507,2.462-5.452,4.96a11.116,11.116,0,0,0,.407,3.118s-.383-.018-.419.681a8.612,8.612,0,0,0,.45,2.036c.17.875.675.875.675.875a17.013,17.013,0,0,0,.511,2.3,9.016,9.016,0,0,0,.693,1.319,12.8,12.8,0,0,1-.1,3,3.218,3.218,0,0,1-1.465.675,28.323,28.323,0,0,0-3.167.608c-.863.3-3.361,1.246-3.8,3.179a.486.486,0,0,0,.48.59H27.354A.485.485,0,0,0,27.828,27.251Z" transform="translate(-4.501 -4.5)"/>
+                            </svg>
+        
+                            <span>Мой аккаунт</span>
+                        
+                        </div>
+
+                    </a>
+
+                    <a href="/contact" target='_blank'>
+
+                        <div class="btn" id="myAccount">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" id="Layer_1" viewBox="0 0 24 24" xml:space="preserve">
+                                <style type="text/css">
+                                    .st0{fill:none;}
+                                </style>
+                                <g id="surface1">
+                                    <path d="M12,2v7.1c1.2,0.4,2,1.5,2,2.8c0,0.5-0.1,1-0.4,1.4l2,1.6c0.1,0,0.2-0.1,0.4-0.1c0.6,0,1,0.4,1,1c0,0.6-0.4,1-1,1   c-0.6,0-1-0.4-1-1v-0.1l-2-1.6c-0.5,0.5-1.2,0.8-2,0.8c-1.7,0-3-1.3-3-3c0-1.3,0.8-2.4,2-2.8v-7H9.9C6.4,2.5,3.5,5.4,3.1,9   c-0.3,2.2,0.3,4.2,1.5,5.8C5.5,16,6,17.3,6,18.8V22h9v-3h2c1.1,0,2-0.9,2-2v-3l1.5-0.6c0.4-0.2,0.6-0.8,0.4-1.2l-1.9-3   C18.6,5.5,15.7,2.5,12,2z M11,10.5c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5s1.5-0.7,1.5-1.5S11.8,10.5,11,10.5z"/>
+                                </g>
+                                <rect class="st0" width="24" height="24"/>
+                                </svg>
+        
+                            <span>Поддержка</span>
+                        
+                        </div>
+
+                    </a>
+
+                    <a href="/logout">
+
+                        <div class="btn no-margin" id="logout">
+
+                            <svg style="fill: red;" xmlns="http://www.w3.org/2000/svg" width="28.618" height="27.77" viewBox="0 0 28.618 27.77">
+                                <path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M9.606-1.086c-4,.8-3.2,2.4,0,3.2s9.606-4,12.808,0,3.2,12.007,0,16.01-9.606-.8-12.808,0-4,2.4,0,3.2,12.007,5.6,16.01,0,4-16.81,0-22.414S13.608-1.886,9.606-1.086Zm-3.2,6.4c-1.6.4-6.4,2.4-6.4,4.8s4.8,4.4,6.4,4.8,0-3.2,0-3.2,9.606.8,12.808,0,3.2-2.4,0-3.2S6.4,8.52,6.4,8.52,8,4.918,6.4,5.318Z" transform="translate(0 3.764)"/>
+                            </svg>
+        
+                            <span style="color: red;">Выйти</span>
+                        
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Account details form -->
+            <div class="account-preferences">
+
+                <div class="wrapper">
+
+                    <div id="closeAccountPreferences">×</div>
+
+                    <span class="form-title">Мой аккаунт</span>
+
+                    <div class="fields">
+
+                        <!-- Email -->
+                        <div id="profileEmail" class="field">
+
+                            <svg class='field-icon' id="accountEmail" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 35 35">
+                                <defs>
+                                  <clipPath id="clip-Пользовательский_размер_1">
+                                    <rect width="35" height="35"/>
+                                  </clipPath>
+                                </defs>
+                                <g id="Пользовательский_размер_1" data-name="Пользовательский размер – 1" clip-path="url(#clip-Пользовательский_размер_1)">
+                                  <rect width="35" height="35" fill="none"/>
+                                  <g id="Icon_feather-mail" data-name="Icon feather-mail" transform="translate(-0.891 0.157)">
+                                    <path id="Контур_3" data-name="Контур 3" d="M6.078,6H30.7a3.046,3.046,0,0,1,3.078,2.994V26.958A3.046,3.046,0,0,1,30.7,29.952H6.078A3.046,3.046,0,0,1,3,26.958V8.994A3.046,3.046,0,0,1,6.078,6Z" transform="translate(0)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+                                    <path id="Контур_4" data-name="Контур 4" d="M33.782,9,18.391,18.973,3,9" transform="translate(0 -0.151)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+                                  </g>
+                                </g>
+                            </svg>
+
+                            <input 
+                                type="text"
+                                id="profileEmailVal"
+                                value="{{ user.username }}"
+                                placeholder="Почта" />
+
+                            <svg id="emailError" class="error" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class=" " role="img" aria-label="Warning Icon "><title>Warning Icon</title><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.999756C4.13401 0.999756 1 4.13376 1 7.99976C1 11.8657 4.13401 14.9998 8 14.9998C11.866 14.9998 15 11.8657 15 7.99976C15 4.13376 11.866 0.999756 8 0.999756ZM0 7.99976C0 3.58148 3.58172 -0.000244141 8 -0.000244141C12.4183 -0.000244141 16 3.58148 16 7.99976C16 12.418 12.4183 15.9998 8 15.9998C3.58172 15.9998 0 12.418 0 7.99976ZM7.5 8.99951V3.99999H8.5V8.99951H7.5ZM9 11C9 11.5523 8.55228 12 8 12C7.44772 12 7 11.5523 7 11C7 10.4477 7.44772 10 8 10C8.55228 10 9 10.4477 9 11Z" fill="currentColor"></path></svg>
+                            <svg id="emailOK" class="ok" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class=" text-carnation" role="img" aria-label="Complete Tick Icon "><title>Complete Tick Icon</title><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.99854C4.13401 0.99854 1 4.13254 1 7.99854C1 11.8645 4.13401 14.9985 8 14.9985C11.866 14.9985 15 11.8645 15 7.99854C15 4.13254 11.866 0.99854 8 0.99854ZM0 7.99854C0 3.58026 3.58172 -0.00146484 8 -0.00146484C12.4183 -0.00146484 16 3.58026 16 7.99854C16 12.4168 12.4183 15.9985 8 15.9985C3.58172 15.9985 0 12.4168 0 7.99854Z" fill="green"></path><path d="M7.5 10.4985L7.14645 10.8521L7.92183 10.767L7.5 10.4985ZM4.64645 8.35209L7.14645 10.8521L7.85355 10.145L5.35355 7.64498L4.64645 8.35209ZM7.92183 10.767L11.4218 5.26697L10.5782 4.7301L7.07817 10.2301L7.92183 10.767Z" fill="green"></path></svg>
+
+                        </div>
+
+                        <!-- Password -->
+                        <div id="profilePassword" class="field">
+
+                            <svg class='field-icon' id="accountPassword" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 35 35">
+                                <defs>
+                                  <clipPath id="clip-Пользовательский_размер_1">
+                                    <rect width="35" height="35"/>
+                                  </clipPath>
+                                </defs>
+                                <g id="Пользовательский_размер_1" data-name="Пользовательский размер – 1" clip-path="url(#clip-Пользовательский_размер_1)">
+                                  <rect width="35" height="35" fill="none"/>
+                                  <path id="Icon_ionic-ios-lock" data-name="Icon ionic-ios-lock" d="M30.072,15.369h-2v-3.89a8,8,0,1,0-15.992-.108v4h-2A3.341,3.341,0,0,0,6.75,18.7V34.693a3.341,3.341,0,0,0,3.332,3.332h19.99A3.341,3.341,0,0,0,33.4,34.693V18.7A3.341,3.341,0,0,0,30.072,15.369ZM21.243,25.764v5.731a1.194,1.194,0,0,1-1.108,1.2,1.167,1.167,0,0,1-1.224-1.166V25.764a2.665,2.665,0,1,1,2.332,0Zm4.5-10.395H14.413v-4a5.664,5.664,0,0,1,11.328,0Z" transform="translate(-2.577 -3.2)"/>
+                                </g>
+                            </svg> 
+
+                            <input 
+                                type="text"
+                                id="profilePasswordVal"
+                                placeholder="Новый пароль" />
+
+                            <svg id="passwordError" class="error" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class=" " role="img" aria-label="Warning Icon "><title>Warning Icon</title><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.999756C4.13401 0.999756 1 4.13376 1 7.99976C1 11.8657 4.13401 14.9998 8 14.9998C11.866 14.9998 15 11.8657 15 7.99976C15 4.13376 11.866 0.999756 8 0.999756ZM0 7.99976C0 3.58148 3.58172 -0.000244141 8 -0.000244141C12.4183 -0.000244141 16 3.58148 16 7.99976C16 12.418 12.4183 15.9998 8 15.9998C3.58172 15.9998 0 12.418 0 7.99976ZM7.5 8.99951V3.99999H8.5V8.99951H7.5ZM9 11C9 11.5523 8.55228 12 8 12C7.44772 12 7 11.5523 7 11C7 10.4477 7.44772 10 8 10C8.55228 10 9 10.4477 9 11Z" fill="currentColor"></path></svg>
+                            <svg id="passwordOK" class="ok" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class=" text-carnation" role="img" aria-label="Complete Tick Icon "><title>Complete Tick Icon</title><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.99854C4.13401 0.99854 1 4.13254 1 7.99854C1 11.8645 4.13401 14.9985 8 14.9985C11.866 14.9985 15 11.8645 15 7.99854C15 4.13254 11.866 0.99854 8 0.99854ZM0 7.99854C0 3.58026 3.58172 -0.00146484 8 -0.00146484C12.4183 -0.00146484 16 3.58026 16 7.99854C16 12.4168 12.4183 15.9985 8 15.9985C3.58172 15.9985 0 12.4168 0 7.99854Z" fill="green"></path><path d="M7.5 10.4985L7.14645 10.8521L7.92183 10.767L7.5 10.4985ZM4.64645 8.35209L7.14645 10.8521L7.85355 10.145L5.35355 7.64498L4.64645 8.35209ZM7.92183 10.767L11.4218 5.26697L10.5782 4.7301L7.07817 10.2301L7.92183 10.767Z" fill="green"></path></svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>         
+
+            <!-- TopNav -->
+            <div class="topnav">
+
+                <div class="topnav-wrapper">
+
+                    <div class="toggle-sidenav">
+
+                        <div id="toggleSidenavBtn">
+    
+                            <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><style></style><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="3.207" y1="24.999" x2="48.169" y2="24.999"><stop offset=".044" style="stop-color:#3e3e3f"/><stop offset=".295" style="stop-color:#444443"/><stop offset=".444" style="stop-color:#6a6a69"/><stop offset=".511" style="stop-color:#f5f5f5"/><stop offset=".721" style="stop-color:#b2b2b2"/><stop offset=".854" style="stop-color:#6b6b6a"/><stop offset="1" style="stop-color:#000"/></linearGradient><path d="M47.6 7.1c-.1-.1-.2 0-.3 0h-.2c-.7.2-1 .2-1.2.3-.9.2-2 .2-4.3.4h-.7c-.7 0-1.1-.3-1.5-.4L33 4.5l-7.7-3-7.2 3.1-6.4 2.9c-.4.1-.8.4-1.5.4h-.7c-2.1-.2-3.1-.2-4-.4-.2 0-.5-.1-1.2-.3h-.2c-.1 0-.2-.1-.3 0-.2.1 0 .5 0 .6.1.5.3 1.1.3 1.9.1 2.8.2 5.1.2 5.6 0 2.8.8 10.3 4.5 17.2 4.7 8.9 12.1 13.5 14.8 14.9.9.5 1.6.9 2.1 1.1.5-.2 1.3-.6 2.1-1.1 2.7-1.5 10.2-6 14.8-14.9 3.6-6.9 4.5-14.3 4.4-17.3 0-.5.1-2.8.2-5.6 0-.9.2-1.5.3-1.9 0-.1.2-.5.1-.6z" style="fill:#151718;stroke:url(#SVGID_1_);stroke-miterlimit:10"/><linearGradient id="SVGID_00000170238581779766063300000004351741526981415090_" gradientUnits="userSpaceOnUse" x1="25.651" y1="24.607" x2="44.837" y2="24.607"><stop offset="0" style="stop-color:#fff"/><stop offset=".003" style="stop-color:#ebebea"/><stop offset=".285" style="stop-color:#626261"/><stop offset=".604" style="stop-color:#434341"/><stop offset=".878" style="stop-color:#5d5d5c"/><stop offset=".981" style="stop-color:#5a5a59"/></linearGradient><path style="fill:url(#SVGID_00000170238581779766063300000004351741526981415090_)" d="M25.7 3.8 32 6.6l5.6 2.5c.4.1.8.3 1.4.3h.6c2.1-.1 2.9-.1 3.7-.2.1 0 .1 0 .2-.1 0-.1.2-.1.8-.3 0 0 .2-.1.3-.1.1 0 .2-.1.3 0 .1.2-.1.4-.1.6-.1.5-.3 1-.3 1.7-.1 2.4-.2 4.5-.2 4.9.1 2.5-.7 9.2-3.9 15.3-4.2 7.9-10.7 12-13.1 13.3-.6.4-1.2.6-1.6.8V3.8z"/><linearGradient id="SVGID_00000012435067963643646460000006552318431905618058_" gradientUnits="userSpaceOnUse" x1="6.442" y1="24.607" x2="25.629" y2="24.607"><stop offset="0" style="stop-color:#6a6a6a"/><stop offset=".253" style="stop-color:#fff"/><stop offset=".641" style="stop-color:#545453"/><stop offset="1" style="stop-color:#000"/></linearGradient><path style="fill:url(#SVGID_00000012435067963643646460000006552318431905618058_)" d="m25.6 3.8-6.3 2.8-5.6 2.5c-.4.1-.8.3-1.4.3h-.6c-1.9-.1-2.8-.1-3.6-.2-.1-.1-.1-.1-.2-.1-.1-.1-.4-.1-.9-.3 0 0-.2-.1-.3-.1-.1 0-.2-.1-.3 0 0 .2.1.5.2.6.1.5.3 1 .3 1.7.1 2.5.2 4.5.2 5-.1 2.5.7 9.2 3.9 15.3 4.2 7.9 10.7 12 13.1 13.3.6.4 1.2.6 1.6.8V3.8z"/><path d="M42.6 10.5c-.1-.1-.2 0-.2 0-.1 0-.2.1-.2.1-.5.2-.7.2-.8.3-.1 0-.1 0-.2.1-.7.1-1.5.1-3.3.2h-.5c-.5 0-.9-.2-1.2-.3l-5-2.2-5.6-2.5L20 8.7l-5 2.2c-.3.1-.7.3-1.2.3h-.5c-1.8-.1-2.6-.1-3.3-.2-.1 0-.1 0-.2-.1-.2-.1-.4-.1-.8-.3 0 0-.1-.1-.2-.1s-.2-.1-.2 0c-.1.2.1.4.1.5.1.5.3.9.3 1.6.1 2.1.2 4 .2 4.4-.1 2.2.6 8.2 3.4 13.6 3.7 7 9.5 10.7 11.6 11.8.5.3 1 .6 1.4.7.4-.2.9-.4 1.4-.7 2.1-1.1 7.9-4.7 11.6-11.8 2.8-5.4 3.5-11.3 3.4-13.6 0-.4.1-2.2.2-4.4 0-.7.2-1.1.3-1.5.1-.2.2-.4.1-.6z" style="fill:#161616"/><linearGradient id="SVGID_00000084490913324352633120000004332541933014787204_" gradientUnits="userSpaceOnUse" x1="23.276" y1="15.52" x2="28.198" y2="15.52"><stop offset="0" style="stop-color:#fff"/><stop offset=".497" style="stop-color:#585856"/><stop offset=".894" style="stop-color:#000"/></linearGradient><path style="fill:url(#SVGID_00000084490913324352633120000004332541933014787204_);stroke:#fff;stroke-width:.5;stroke-miterlimit:10" d="M28.2 16.5 25.7 10l-2.4 6.5c-.1.4 0 .9.2 1.4.3 1 .9 1.6 1.2 2l1.1 1.1 1.1-1.1c.3-.4.9-1.1 1.2-2 .1-.5.2-1 .1-1.4z"/><linearGradient id="SVGID_00000088091361903297704470000005596029754580299196_" gradientUnits="userSpaceOnUse" x1="14.881" y1="26.762" x2="36.593" y2="26.762"><stop offset=".029" style="stop-color:#c9c9c9"/><stop offset=".133" style="stop-color:#444442"/><stop offset=".226" style="stop-color:#6e6e6d"/><stop offset=".343" style="stop-color:#9f9f9e"/><stop offset=".479" style="stop-color:#d1d1d0"/><stop offset=".84" style="stop-color:#353534"/></linearGradient><path style="fill:url(#SVGID_00000088091361903297704470000005596029754580299196_);stroke:#fff;stroke-width:.75;stroke-miterlimit:10" d="m36.5 14.6-.4.3-1.1.7c-.1 1.2-.4 2.6-.7 4.3-.6 2.8-1.3 5.8-3.2 9.2-1.7 3-3.6 4.6-4.3 5-.5.4-.8.6-1.1.8v.3-.3c-.3-.2-.6-.4-1.1-.8-.7-.5-2.5-2-4.3-5-1.9-3.4-2.6-6.4-3.2-9.2-.3-1.7-.6-3.1-.7-4.3l-1.1-.7-.4-.3h-.1c0 .7 0 1.6.1 2.8.2 3.1.3 5.6 1.2 8.5 1 3.4 2.7 6.6 4.5 8.2.1.1.6.6 1.3 1.2 1.3 1.2 2.3 2.1 3 2.7l.9.8.9-.8c.7-.6 1.7-1.6 3-2.7.7-.6 1.2-1.1 1.3-1.2 1.7-1.6 3.5-4.8 4.5-8.2.9-2.9 1-5.4 1.2-8.5-.1-1.1-.1-2.1-.2-2.8z"/><linearGradient id="SVGID_00000006676307419418630960000009169438636621821099_" gradientUnits="userSpaceOnUse" x1="18.527" y1="15.397" x2="27.559" y2="15.551"><stop offset=".253" style="stop-color:#9f9f9e"/><stop offset=".389" style="stop-color:#d1d1d0"/><stop offset=".468" style="stop-color:#fff"/><stop offset=".556" style="stop-color:#c3c3c3"/><stop offset=".747" style="stop-color:#545453"/><stop offset="1" style="stop-color:#000"/></linearGradient><path style="fill:url(#SVGID_00000006676307419418630960000009169438636621821099_)" d="M23.3 16.5c-.1.4 0 .9.2 1.4.3 1 .9 1.6 1.2 2l1.1 1.1V10l-2.5 6.5z"/><linearGradient id="SVGID_00000057138960042095624790000005470162988415439514_" gradientUnits="userSpaceOnUse" x1="25.366" y1="15.52" x2="27.827" y2="15.52"><stop offset="0" style="stop-color:#fff"/><stop offset=".713" style="stop-color:#5e5e5c"/></linearGradient><path style="fill:url(#SVGID_00000057138960042095624790000005470162988415439514_)" d="M28.2 16.5c.1.4 0 .9-.2 1.4-.3 1-.9 1.6-1.2 2L25.7 21V10l2.5 6.5z"/><linearGradient id="SVGID_00000088131089398814439810000008218929757069733037_" gradientUnits="userSpaceOnUse" x1="14.784" y1="26.762" x2="25.64" y2="26.762"><stop offset="0" style="stop-color:#3b3b3b"/><stop offset=".093" style="stop-color:#444"/><stop offset="1" style="stop-color:#30302e"/></linearGradient><path style="fill:url(#SVGID_00000088131089398814439810000008218929757069733037_)" d="M24.6 34.4c-.7-.5-2.6-2-4.5-5.1-2-3.4-2.7-6.5-3.4-9.4-.5-1.9-.6-3.4-.7-4.6l-1.1-.7h-.1c0 .7 0 1.6.1 2.8.2 3.1.3 5.6 1.2 8.5 1 3.4 2.7 6.6 4.5 8.2.1.1.6.6 1.3 1.2 1.3 1.2 2.3 2.1 3 2.7l.9.8v-3.7c-.5-.1-.8-.3-1.2-.7z"/><linearGradient id="SVGID_00000152236117738550589520000011252403984693331859_" gradientUnits="userSpaceOnUse" x1="14.098" y1="27.601" x2="23.216" y2="26.331"><stop offset=".029" style="stop-color:#c9c9c9"/><stop offset=".133" style="stop-color:#444442"/><stop offset=".226" style="stop-color:#6e6e6d"/><stop offset=".343" style="stop-color:#9f9f9e"/><stop offset=".479" style="stop-color:#d1d1d0"/><stop offset=".84" style="stop-color:#161616"/></linearGradient><path style="fill:url(#SVGID_00000152236117738550589520000011252403984693331859_)" d="M24.6 34.1c-.7-.5-2.5-2-4.3-5-1.9-3.4-2.6-6.4-3.2-9.2-.3-1.7-.6-3.1-.7-4.3l-1.1-.7c0 .6 0 1.4.1 2.4.2 3 .3 5.5 1.2 8.4 1 3.3 2.6 6.5 4.2 8.1L22 35c1.2 1.2 2.2 2 2.8 2.6l1 .9v-3.7c-.5-.1-.7-.3-1.2-.7z"/><linearGradient id="SVGID_00000050630333602843427090000014518289551400535993_" gradientUnits="userSpaceOnUse" x1="34.213" y1="18.944" x2="30.253" y2="31.23"><stop offset="0" style="stop-color:#797978"/><stop offset=".471" style="stop-color:#90908f"/><stop offset=".878" style="stop-color:#5d5d5c"/><stop offset=".981" style="stop-color:#5e5e5c"/></linearGradient><path style="fill:url(#SVGID_00000050630333602843427090000014518289551400535993_)" d="M26.7 34.4c.7-.5 2.6-2 4.5-5.1 2-3.4 2.7-6.5 3.4-9.4.5-1.9.6-3.4.7-4.6l1.1-.7h.1c0 .7 0 1.6-.1 2.8-.2 3.1-.3 5.6-1.2 8.5-1 3.4-2.7 6.6-4.5 8.2-.1.1-.6.6-1.3 1.2-1.3 1.2-2.3 2.1-3 2.7l-.9.8v-3.7c.4-.1.8-.3 1.2-.7z"/><linearGradient id="SVGID_00000175289997031855549880000015359792046518777007_" gradientUnits="userSpaceOnUse" x1="25.651" y1="26.716" x2="36.022" y2="26.716"><stop offset=".029" style="stop-color:#c9c9c9"/><stop offset=".133" style="stop-color:#444442"/><stop offset=".226" style="stop-color:#6e6e6d"/><stop offset=".343" style="stop-color:#9f9f9e"/><stop offset=".479" style="stop-color:#d1d1d0"/><stop offset=".84" style="stop-color:#242422"/></linearGradient><path style="fill:url(#SVGID_00000175289997031855549880000015359792046518777007_)" d="M26.7 34.1c.7-.5 2.5-2 4.3-5 1.9-3.4 2.6-6.4 3.2-9.2.3-1.7.6-3.1.7-4.3l1.1-.7c0 .6 0 1.4-.1 2.4-.2 3-.3 5.5-1.2 8.4-1 3.3-2.6 6.5-4.2 8.1L29.3 35c-1.2 1.2-2.2 2-2.8 2.6l-1 .9v-3.7c.4-.1.7-.3 1.2-.7z"/><linearGradient id="SVGID_00000163073281477959964370000002122960206975566774_" gradientUnits="userSpaceOnUse" x1="19.306" y1="24.14" x2="31.951" y2="24.14"><stop offset="0" style="stop-color:#fff"/><stop offset=".894" style="stop-color:#242422"/></linearGradient><path style="fill:url(#SVGID_00000163073281477959964370000002122960206975566774_);stroke:#fff;stroke-width:.75;stroke-miterlimit:10" d="M30.9 17.9c-1 1.2-1.6 2.2-2 2.9-.9 1.5-1.2 2.1-2.6 4.6-.3.5-.5.8-.6 1-.1-.2-.3-.4-.6-1-1.5-2.4-1.7-3.1-2.6-4.6-.4-.7-1.1-1.7-2-2.9l-1.1-1.5c.2 2.7.8 4.9 1.3 6.5.6 1.6 1.2 3.6 2.4 5.2.2.3.9 1.2 1.7 2.4.4.5.7.9.9 1.3.2-.3.5-.7.9-1.3.9-1.3 1.6-2.1 1.7-2.4 1.3-1.6 1.8-3.6 2.4-5.2.5-1.6 1.1-3.8 1.3-6.5l-1.1 1.5z"/><linearGradient id="SVGID_00000089554208840774187840000002716541551217972389_" gradientUnits="userSpaceOnUse" x1="18.826" y1="24.723" x2="25.038" y2="23.733"><stop offset=".074" style="stop-color:#444442"/><stop offset=".226" style="stop-color:#6e6e6d"/><stop offset=".49" style="stop-color:#d1d1d0"/><stop offset=".785" style="stop-color:#545453"/><stop offset="1" style="stop-color:#000"/></linearGradient><path style="fill:url(#SVGID_00000089554208840774187840000002716541551217972389_)" d="M25.6 26.3c-.1-.2-.3-.4-.6-1-1.5-2.4-1.7-3.1-2.6-4.6-.4-.7-1.1-1.7-2-2.9l-1.1-1.5c.2 2.7.8 4.9 1.3 6.5.6 1.6 1.2 3.6 2.4 5.2.2.3.9 1.2 1.7 2.4.4.5.7.9.9 1.3v-5.4z"/><linearGradient id="SVGID_00000008135447733732023300000000488378199293606284_" gradientUnits="userSpaceOnUse" x1="25.641" y1="24.14" x2="31.963" y2="24.14"><stop offset="0" style="stop-color:#fff"/><stop offset=".894" style="stop-color:#242422"/></linearGradient><path style="fill:url(#SVGID_00000008135447733732023300000000488378199293606284_)" d="M25.6 26.3c.1-.2.3-.4.6-1 1.5-2.4 1.7-3.1 2.6-4.6.4-.7 1.1-1.7 2-2.9l1.1-1.5c-.2 2.7-.8 4.9-1.3 6.5-.6 1.6-1.2 3.6-2.4 5.2-.2.3-.9 1.2-1.7 2.4-.4.5-.7.9-.9 1.3v-5.4z"/></svg>
+    
+                        </div>
+    
+                    </div>
+    
+                    <!-- Search form -->
+                    <div class="search-notes">
+    
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="23.835" height="23.841" viewBox="0 0 23.835 23.841">
+                            <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M4.78,26.609l6.629-6.691a9.447,9.447,0,1,1,1.434,1.452L6.257,28.018a1.02,1.02,0,0,1-1.44.037A1.027,1.027,0,0,1,4.78,26.609ZM18.832,21.45a7.46,7.46,0,1,0-5.276-2.185A7.414,7.414,0,0,0,18.832,21.45Z" transform="translate(-4.5 -4.493)"/>
+                        </svg>
+    
+                        <form>
+    
+                            <!-- Note title/content query -->
+                            <input 
+                                type="text"
+                                id="noteSearch" 
+                                name="q" 
+                                placeholder="Искать пароль"
+                                hx-post="{% url 'app:search' %}"
+                                hx-target="#passwordList"
+                                hx-trigger="input changed delay:0.25s">
+                                
+                        </form>
+    
+                        <form>
+    
+                            <button 
+                                hx-post="{% url 'app:cancel-search' %}"
+                                hx-target=".notes"
+                                hx-trigger="click delay:0.5s"
+                                id="cancelSearch">×</button>
+                        
+                        </form>
+    
+                    </div>
+    
+                    <!-- Light/dark mode btn -->
+                    <div class="mode">
+    
+                        <label class="toggle-mode">
+
+                            {% if profile.dark_mode %}
+                            
+                                <input class='toggle-checkbox' id="modeCB" type='checkbox' checked></input>
+    
+                                <script>
+    
+                                    $('body').addClass('dark');
+    
+                                </script>
+    
+                            {% else %}
+    
+                                <input class='toggle-checkbox' id="modeCB" type='checkbox'></input>
+    
+                            {% endif %}
+
+                            <div class='toggle-slot'>
+                            <div class='sun-icon-wrapper'>
+                                <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                            </div>
+                            <div class='toggle-button'></div>
+                            <div class='moon-icon-wrapper'>
+                                <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                            </div>
+                            </div>
+
+                        </label>
+    
+                    </div>
+    
+                    <div class="profile">
+    
+                        <div class="initials">
+    
+                            <span>{{ user.username|slice:":1"|upper }}</span>
+    
+                        </div>
+    
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Notes -->
+            <div class="passwords">
+
+                <div class="first-password">
+
+                    <span class="warn-text">Сейф пуст 🗄️</span>
+                    <span class="cta-text">Засекреть свой первый пароль 🔒</span>
+                    <button class="cta-btn">Создать пароль</button>
+            
+                </div>
+
+                <div id="passwordList">
+
+                    {% include 'components/passwords.html' %}
+
+                </div>
+
+            </div>
+
+            <div id="addPasswordBtn">+</div>
+
+            <div id="firstPasswordForm">
+
+                <div class="wrapper">
+
+                    <div id="closeNewPasswordForm">×</div>
+
+                    <span id="newPasswordHeading">Новый пароль</span>
+
+                    <div id="newPasswordForm">
+
+                        <form hx-post="/cp" hx-target="#passwordList">
+
+                            <input 
+                                name="l" 
+                                type="text" 
+                                id="newPasswordURL" 
+                                placeholder="Ссылка" />
+
+                            <input 
+                                name='t' 
+                                type="text" 
+                                id="newPasswordName" 
+                                placeholder="Заголовок" />
+
+                            <input 
+                                name='u' 
+                                type="text" 
+                                id="newPasswordLogin" 
+                                placeholder="Логин" />
+
+                            <input 
+                                name='p' 
+                                type="password" 
+                                id="newPasswordPassword" 
+                                placeholder="Пароль" />
+
+                            <div class="show-new-password-btn">
+
+                                <svg id="newShown" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5C5.25 4.5 1.5 9.75 1.5 12s3.75 7.5 10.5 7.5 10.5-5.25 10.5-7.5S18.75 4.5 12 4.5zM5.552 15.103C4.282 13.966 3.5 12.583 3.5 12c0-.584.781-1.966 2.052-3.103C7.231 7.395 9.438 6.5 12 6.5c2.562 0 4.77.895 6.448 2.397 1.27 1.137 2.052 2.52 2.052 3.103 0 .584-.781 1.966-2.052 3.103C16.769 16.605 14.562 17.5 12 17.5c-2.562 0-4.77-.895-6.448-2.397zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm2-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" /></svg>
+                                <svg id="newHidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" ><path fill-rule="evenodd" clip-rule="evenodd" d="M20.707 20.707a1 1 0 0 0 0-1.414l-16-16a1 1 0 0 0-1.414 1.414L5.205 6.62C2.785 8.338 1.5 10.683 1.5 12c0 2.25 3.75 7.5 10.5 7.5 1.916 0 3.59-.423 5.006-1.08l2.287 2.287a1 1 0 0 0 1.414 0zm-5.228-3.814-1.774-1.774A4 4 0 0 1 8.38 9.794L6.644 8.058a9.332 9.332 0 0 0-1.09.84C4.28 10.034 3.5 11.417 3.5 12c0 .584.781 1.966 2.052 3.103C7.231 16.605 9.438 17.5 12 17.5a9.97 9.97 0 0 0 3.48-.607zm4.841-.815C21.751 14.61 22.5 13.006 22.5 12c0-2.25-3.75-7.5-10.5-7.5-1.043 0-2.015.125-2.912.346l1.721 1.72c.388-.043.785-.066 1.191-.066 2.562 0 4.77.895 6.448 2.397 1.27 1.137 2.052 2.52 2.052 3.103 0 .51-.596 1.63-1.595 2.663l1.415 1.415z" /></svg>
+                
+                            </div>
+
+                            <textarea 
+                                name="n" 
+                                id="newPasswordText" 
+                                cols="45" 
+                                rows="10"
+                                placeholder="Записка..."></textarea>
+
+                            <button type="submit" id="createNewPassword" disabled>Создать</button>
+
+                        </form>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div id="editPasswordForm">
+
+                {% include 'components/edit-password.html' %}
+                
+            </div>
+
+    </body>
+    
+    <!-- Show/Hide password (new password form) -->
+
+    <script>
+
+        $('#newHidden').click(function() {
+
+            $(this).hide()
+            $('#newShown').show();
+
+            $('#newPasswordPassword').attr('type', 'password')
+
+        });
+
+        $('#newShown').click(function() {
+
+            $(this).hide()
+            $('#newHidden').show();
+            
+            $('#newPasswordPassword').attr('type', 'text')
+
+        });
+
+    </script>
+
+    <!-- Password -->
+    <script>
+
+        $('#newPasswordURL').focus(function() {
+
+            $(this).val('https://');
+
+        });
+
+        function copyToClipboard(text) {
+            
+                    // Create a temporary textarea element
+            var textarea = document.createElement('textarea');
+            // Set the value of the textarea to the text you want to copy
+            textarea.value = text;
+            // Append the textarea to the document body
+            document.body.appendChild(textarea);
+            // Select the text inside the textarea
+            textarea.select();
+            // Execute the copy command
+            document.execCommand('copy');
+            // Remove the textarea from the document body
+            document.body.removeChild(textarea);    
+
+        }
+
+        if ($('#passwordList').children().length === 1) {
+
+            $('.first-password').css('display', 'flex');
+
+        }
+
+        $('.cta-btn, .add-password').click(function() {
+
+            $('.first-password').hide();
+
+        });
+
+        $('#createNewPassword').click(function() {
+
+            $(this).addClass('active');
+
+            setTimeout(function() {
+
+                $('#createNewPassword').removeClass('active');
+
+            }, 250);
+
+            $('#firstPasswordForm').animate({
+
+                'opacity': 0,
+
+            }, 250);
+
+            setTimeout(function() {
+
+                $('#firstPasswordForm').hide();
+
+            }, 250);
+
+        });
+
+        $('.password-action').click(function() {
+
+            btn = $(this);
+
+            btn.addClass('in');
+
+            setTimeout(function() {
+
+                btn.removeClass('in');
+
+            }, 250);
+
+        });
+
+        function copyToClipboard(text) {
+            // Create a temporary textarea element
+            var textarea = document.createElement('textarea');
+            // Set the value of the textarea to the text you want to copy
+            textarea.value = text;
+            // Append the textarea to the document body
+            document.body.appendChild(textarea);
+            // Select the text inside the textarea
+            textarea.select();
+            // Execute the copy command
+            document.execCommand('copy');
+            // Remove the textarea from the document body
+            document.body.removeChild(textarea);
+        
+        }
+
+        $('.copyPassword').click(function() {
+
+            password = $(this).siblings('input:first').attr('class');
+            copyToClipboard(password);
+
+        });
+
+        $('.deletePassword').click(function() {
+
+            uid = $(this).siblings('input:first').attr('id');
+
+            $.ajax({
+
+                type: 'POST',
+                
+                url: '/dp',
+
+                data: {
+
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'i': uid,
+
+                }
+
+            });
+
+            $(this).parent().parent().remove();
+
+            alert($('#passwordList').children().length)
+
+            if ($('#passwordList').children().length === 1) {
+
+                $('.first-password').css('display', 'flex');
+
+            }
+
+        });
+
+        $('.cta-btn, #addPasswordBtn').click(function() {
+
+            $('#firstPasswordForm').css('display', 'flex');
+            $('#firstPasswordForm').animate({
+
+                'opacity': 1,
+
+            }, 250);
+
+            $('#newPasswordURL').focus();
+
+            $(this).addClass('in');
+
+            setTimeout(function() {
+
+                $('.cta-btn').removeClass('in');
+
+            }, 250);
+
+        });
+
+        $('#closeNewPasswordForm').click(function() {
+
+            $(this).addClass('active');
+
+            setTimeout(function() {
+
+                $('#closeNewPasswordForm').removeClass('active');
+
+            }, 250);
+
+            $('#firstPasswordForm').animate({
+
+                'opacity': 0,
+
+            }, 250);
+            
+            setTimeout(function() {
+
+                $('#firstPasswordForm').hide();
+
+            }, 250);
+
+        });
+
+    </script>
+
+    <style>
+
+        @font-face {
+
+            font-family: Comfortaa;
+            src: url("{% static 'fonts/Comfortaa.ttf' %}");
+
+        }
+
+        @font-face {
+
+            font-family: SG;
+            src: url("{% static 'fonts/ShowcardGothic.otf' %}");
+        
+        }
+
+    </style>
+
+    <!-- Anal -->        
+    <script>
+
+        $(window).on('load', function() {
+
+            
+            $.ajax({ 
+                
+                type: 'POST',
+
+                url: "{% url 'analytics:funnel' %}",
+                
+                data: {
+                    
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    
+                }
+                
+            });
+
+        });
+
+    </script>
+
+    <!-- universal -->
+    <script>
+
+        document.body.addEventListener('htmx:configRequest', (event) => {
+
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+
+        });
+
+        function delay(callback, ms) {
+
+            var timer = 0;
+
+            return function() {
+
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                
+                timer = setTimeout(function () {
+
+                    callback.apply(context, args);
+
+                }, ms || 0);
+
+            };
+            
+        };
+
+        function validateEmail(e) {
+
+            var re = /\S+@\S+\.\S+/;
+            return re.test(e);
+
+        }
+
+        function hasNumber(myString) {
+
+            return /\d/.test(myString);
+        
+        }
+
+    </script>
+
+    <!-- Tasks -->
+
+    <script>
+
+        $('#tasksSection').click(function() {
+
+            $('.new-note').hide();
+            $('.notes').hide();
+            $('.new-task').css('display', 'flex');
+
+        });
+
+    </script>
+
+    <!-- First note cta -->
+
+    <script>
+
+        if ($('.note-section').children('.note').length == 0) {
+
+            $('.first-note').css('display', 'flex');
+            $('.note-section-title').hide();
+
+        };
+        
+        $('.cta-btn').click(function() {
+
+            $('.new-note-title').focus();
+
+            $('.first-note').hide();
+
+        });
+
+    </script>
+
+    <!-- Mode -->
+    <script>
+
+        $('#modeCB').change(function() {
+
+            $('body').toggleClass('dark')
+
+            $.ajax({
+
+                type: 'POST',
+
+                url: "{% url 'user:toggle-mode' %}",
+
+                data: {
+
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+    <!-- Profile -->
+    <script>
+
+        /* Dropdown */
+
+        profileDropdownOpen = false;
+        
+        $('.profile').click(function() {
+
+            $('.initials').toggleClass('active');
+
+            if (profileDropdownOpen) {
+
+                $('.profile-dropdown').animate({'opacity': 0}, 250);
+
+                setTimeout(function() {
+
+                    $('.profile-dropdown').hide();
+
+                }, 250);
+
+                profileDropdownOpen = false;
+
+            } else {
+
+                $('.profile-dropdown').show();
+                $('.profile-dropdown').animate({'opacity': 1}, 250);
+
+                profileDropdownOpen = true;
+
+            }
+
+        });
+
+        /* Button & dropdown animation */
+
+        $('#myAccount, #logout, #subscription').click(function() {
+
+            $(this).addClass('active');
+
+            setTimeout(function() {
+
+                $('.btn').removeClass('active');
+
+            }, 250);
+
+                /* Hide profile dropdown */
+            $('.initials').removeClass('active');
+
+            $('.profile-dropdown').animate({'opacity': 0}, 250);
+
+            setTimeout(function() {
+
+                $('.profile-dropdown').hide();
+
+            }, 250);
+
+            profileDropdownOpen = false;
+
+        });
+
+        /* Account preferences */
+
+        accountFormOpen = false;
+
+            /* Form render */
+        $('#myAccount').click(function() {
+
+            accountFormOpen = true;
+
+            $('.account-preferences').css('display', 'flex');
+            $('.account-preferences').animate({
+
+                'opacity': 1,
+
+            }, 250);
+
+            oldName = $('#profileNameVal').val();
+            oldEmail = $('#profileEmailVal').val();
+
+        });
+
+            /* Close form */
+        $('#closeAccountPreferences').click(function() {
+
+            accountFormOpen = false;
+
+            $('#closeAccountPreferences').addClass('active');
+
+            $('.account-preferences').animate({
+
+                'opacity': 0,
+
+            }, 250);
+
+            setTimeout(function() {
+
+                $('#closeAccountPreferences').removeClass('active');
+
+                $('.account-preferences').hide();
+
+                $('#emailError').hide();
+                $('#nameError').hide();
+                $('#passwordError').hide();
+                $('#profilePasswordVal').val('');
+
+            }, 250);
+
+        });
+
+            /* Field logic */
+
+        /* Name */
+        document.getElementById('profileNameVal').addEventListener('input', function() {
+
+            $('#nameError').hide();
+            $('#nameOK').hide();
+
+        });
+
+        document.getElementById('profileNameVal').addEventListener('input', delay(function() {
+
+            if (!$('#profileNameVal').val()) {
+
+                $('#nameError').show();
+
+            } else {
+
+                $('#nameOK').show();
+
+                setTimeout(function() {
+
+                    $('#nameOK').hide();
+
+                }, 1500);
+
+                newName = $('#profileNameVal').val();
+
+                if (newName != oldName) {
+
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: "{% url 'user:cn' %}",
+
+                        data: {
+
+                            'csrfmiddlewaretoken': "{{ csrf_token }}",
+                            'n': newName,
+
+                        }
+
+                    });
+
+                }
+
+            }
+            
+        }, 750));
+
+        /* Email */
+        document.getElementById('profileEmailVal').addEventListener('input', function() {
+
+            $('#emailError').hide();
+            $('#emailOK').hide();
+
+        });
+
+        document.getElementById('profileEmailVal').addEventListener('input', delay(function() {
+
+            newEmail = $('#profileEmailVal').val();
+
+            if (!validateEmail(newEmail)) {
+
+                $('#emailError').show();
+
+            } else {
+
+                $('#emailOK').show();
+
+                setTimeout(function() {
+
+                    $('#emailOK').hide();
+
+                }, 1500);
+
+                if (newEmail != oldEmail) {
+
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: "{% url 'user:cu' %}",
+
+                        data: {
+
+                            'csrfmiddlewaretoken': "{{ csrf_token }}",
+                            'e': newEmail,
+
+                        }
+
+                    });
+
+                }
+
+            }
+            
+        }, 750));
+
+        /* Password */
+
+        document.getElementById('profilePasswordVal').addEventListener('input', function() {
+
+            $('#passwordError').hide();
+            $('#passwordOK').hide();
+
+        });
+
+        document.getElementById('profilePasswordVal').addEventListener('input', delay(function() {
+
+            newPassword = $('#profilePasswordVal').val();
+
+            if (newPassword.length < 7 || !hasNumber(newPassword)) {
+
+                $('#passwordError').show();
+
+            } else {
+                
+                $('#passwordOK').show();
+
+                setTimeout(function() {
+
+                    $('#passwordOK').hide();
+
+                }, 1500);
+
+
+                $.ajax({
+
+                    type: 'POST',
+
+                    url: "{% url 'user:cp' %}",
+
+                    data: {
+
+                        'csrfmiddlewaretoken': "{{ csrf_token }}",
+                        'p': newPassword,
+
+                    }
+
+                });
+
+            }
+            
+        }, 750));
+
+        
+
+    </script>
+
+    <!-- Close forms when ESC has been clicked -->
+    <script>
+
+        $('body').click(function(e) {
+
+            console.log(e);
+
+        });
+
+        $('body').keyup(function(e) {
+
+            if (e.keyCode === 27) {
+
+                if (window.opener && window.opener !== window) { /* We're in a pop-up */
+
+                    console.log('p');
+
+                } else {
+
+                    if (folderFormShown) {
+
+                        folderFormShown = false;
+
+                        $('.create-folder').animate({'opacity': 0}, 250);
+
+                        setTimeout(function() {
+            
+                            $('.create-folder').css('display', 'none');
+            
+                        }, 250);
+
+                    } else if (accountFormOpen) {
+
+                        $('.account-preferences').animate({
+
+                            'opacity': 0,
+
+                        }, 250);
+
+                        setTimeout(function() {
+
+                            $('#emailError').hide();
+                            $('#nameError').hide();
+                            $('#passwordError').hide();
+                            $('#profilePasswordVal').val('');
+
+                            $('#closeAccountPreferences').removeClass('active');
+
+                            $('.account-preferences').hide();
+
+                        }, 250);
+
+                    } else if (editFolderFormShown) {
+
+                        editFolderFormShown = false;
+
+                        $('.edit-folder-btn').removeClass('active');
+
+                        $('.edit-folder').animate({'opacity': 0}, 250);
+
+                        setTimeout(function() {
+
+                            $('.edit-folder').css('display', 'none');
+
+                        }, 250);
+
+                    } else if (noteOpen && !photoOpen && !folderSearchOpen) {
+
+                        closeNote();
+
+                    } else if (folderSearchOpen && !photoOpen) {
+
+                        closeFolderSearch();
+
+                    } else {
+
+                        closePhotoCarousel();
+                        photoOpen = false;
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+</html>
